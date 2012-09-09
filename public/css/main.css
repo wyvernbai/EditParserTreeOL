@@ -1,0 +1,531 @@
+/*
+	Title:		Master styles for ElvenHut version 1.0
+	Author:		admin@asiteof.me
+*/
+
+/* main styles */
+body {
+	background: rgba(78, 68, 60, 0.75) url(/css/img/tile.jpg);
+	font-family: 'Source Sans Pro', Arial,sans-serif;
+	/*font-family: "BigNoodleTitling", Helvetica, Arial, sans-serif;*/
+	line-height: 1.5;
+	min-width: 1280px;
+}
+
+#outline {
+	border-top: 5px solid #4b5258;
+}
+
+#wrap{
+	width: 75%;
+	line-height: 1.5;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* footer styles*/
+footer {
+	font-size: 1em;
+	height: 1.5;
+	overflow: hidden;
+	padding: 0.6em 0 2em;
+	clear: both;
+	margin: 0 auto;
+	width: 100%;
+	background-color: #4b5258;
+	background: transparent url(/css/img/footer_bg.jpg) repeat-x 0 0;
+}
+
+footer div.footer-inner {
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+footer div.copy {
+	float: left;
+	padding: 1em 0 0 0;
+	color: #f5efe0;
+}
+
+footer p {
+	line-height: 1.6em;
+	color: #f5efe0;
+	font-size: 1em;
+	margin: 0 0 1.2em 0;
+}
+
+footer em {
+	font-style: italic;
+}
+
+footer ul.social {
+	padding: 1.4em 0;
+	float: right;
+}
+
+footer ul.social li{
+	display: inline-block;
+	font-weight: 300;
+	text-transform: uppercase;
+	list-style: none;
+}
+
+footer ul a {
+	font-weight: 300;
+	font-size: 0.8em;
+}
+
+footer li.github a {
+	background: transparent url(/css/img/github_icon_small.png) no-repeat;
+	padding: .3em 0 .65em 22px;
+	margin-right: 1.5em;}
+
+footer li.gplus a {
+	background: transparent url(/css/img/google-plus-icon.png) no-repeat;
+	padding: .2em 0 .65em 22px;
+	margin-right: 1.25em;
+}
+
+footer li.rss a{
+	background: transparent url(/css/img/rss-icon.png) no-repeat;
+	padding: .2em 0 .65em 22px;
+}
+
+footer ul li a:visited, footer ul li a:link{
+	color: #f5efe0;
+}
+
+footer ul li a:hover {
+	color: #7f8d93;
+}
+
+/*head styles*/
+
+header[role="banner"] {
+	height: 200px;
+}
+
+#logo {
+	color: #4b5258;
+	float: left;
+	margin-top: 60px;
+	margin-bottom: 10px;
+	/*margin-left: 50px;*/
+}
+
+#logo h1 {
+	font: 4.6em/0.82 "NewPressEroded",Tahoma，Helvetica,Calibri,Arial,sans-serif;
+}
+
+#logo h1 em {
+	font: 0.4em "BigNoodleTitling", Tahoma，Helvetica, Arial, sans-serif;
+	color: #6e6e6e;
+	margin-left: 30px;
+}
+
+#nav ul {
+	float: right;
+	width: auto;
+	margin: 0;
+	/*margin-right: 50px;*/
+	letter-spacing: 1px;
+	font-size: 1.55em;
+	line-height: 1.5;
+}
+
+#nav li {
+  	display: inline;
+  	list-style: none;
+}
+
+#nav li a.active {
+	background: #4b5258;
+  	padding: 90px 0 10px 0;
+}
+
+#nav li a {
+	font-family: "BigNoodleTitling", Tahoma, Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+	display: block;
+  	float: left;
+  	width: 70px;
+  	color: #ffffff;
+  	background: #4b5258;
+  	margin-left: 10px;
+  	text-align: center;
+  	text-decoration: none;
+ 	text-transform: UPPERCASE;
+  	-webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  	-moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  	-moz-border-radius-topleft: 0px;
+  	-moz-border-radius-topright: 0px;
+  	-moz-border-radius-bottomright: 3px;
+	-moz-border-radius-bottomleft: 3px;
+ 	border-top-left-radius: 0px;
+  	border-top-right-radius: 0px;
+  	border-bottom-right-radius: 3px;
+  	border-bottom-left-radius: 3px;
+  	padding: 60px 0 4px;
+}
+
+/*content styles*/
+#content {
+	font-size: 1em;
+	line-height: 1.6;
+	margin-bottom: 60px;
+	margin-top: 15px;
+}
+
+#content article {
+	margin: 0 0 3em 0;
+	padding: 0 0 0 20%;
+}
+
+article header, post header {
+	padding-bottom: 10px;
+}
+
+article aside ul li {
+	list-style: none;
+	position: relative;
+}
+
+article aside ul li h4, post header h4 {
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-size: 0.85em;
+	font-weight: 300;
+	color: #6e6e6e;
+	font-family: 'Source Sans Pro',Tahoma, Helvetica, Arial,sans-serif;
+}
+
+article aside ul li a:link, article aside ul li a:visited {
+	font-weight: 300;
+	font-size: 0.85em;
+	color: #6e6e6e;
+}
+
+article aside ul li a:hover {
+	color: #4b5258;
+	font-weight: 400;
+}
+
+article p, article ul, article ol {
+	margin: 0 40px 1em 0;
+	font-size: 1.2em;
+}
+
+post {
+	margin-left: 40px;
+}
+
+post p {
+	margin: 0 20px 1em 0;
+	font-size: 1.3em;
+}
+
+article aside {
+	float: left;
+	width: 20%;
+	margin: 5px 0 0 -20%;
+	font-weight: 300;
+	line-height: 1.5;
+	color: rgba(78, 68, 60, 0.7);
+}
+
+article::after {
+	clear: both;
+}
+
+#content header a {
+	color: #4b5258;
+}
+
+::selection {
+ 	background: #fa453c;
+ 	color: #fff;
+ 	text-shadow: none;
+}
+
+/* login in field */
+#login {
+	width: 30%;
+	margin: 90px auto;
+	font-size: 1.25em;
+	font-weight: 300;
+}
+
+#login label, #edit_post lable {
+	display: block;
+}
+
+#login p {
+	font-family: 'Homenaje';
+	font-weight: 400;
+}
+
+input, textarea {
+	font-family: 'Source Sans Pro',Tahoma, Helvetica, Arial,sans-serif;
+	padding-left: 10px;
+	margin-bottom: 10px;
+	height: 36px;
+	line-height: 100%;
+	color: #4b5258;
+	background-color: #fff;
+	font-size: 18px;
+	font-weight: 600;
+	border: 1px solid #fff;
+	box-shadow: inset 0 1px 4px rgba(125, 125, 125, .65);
+	-moz-box-shadow: inset 0 1px 4px rgba(125, 125, 125, .65);
+	-webkit-box-shadow: inset 0 1px 4px rgba(125, 125, 125, .65);
+	-webkit-transition: all .08s ease-in-out;
+	width: 300px;
+}
+
+#login .button, #edit_post .button, #choose .button {
+	font-size: 16px;
+	font-family: 'Source Sans Pro', Arial,sans-serif;
+	font-weight: 300;
+	margin-left: 15px;
+	color: #f5efe0;
+	background-color: #4b5258;
+	width: 80px;
+}
+
+#login .button:hover, #edit_post .button:hover, #choose .button:hover {
+	background-color: #fa453c;
+}
+
+/* post edit styles*/
+
+#edit_post {
+	min-width: 100%;
+}
+
+#edit_post h2 {
+	padding-bottom: 20px;
+}
+
+#edit_post input {
+	width: 50%;
+}
+
+#edit_post textarea, #tree_edit textarea {
+	max-width: 100%;
+	width: 100%;
+	height: 300px;
+	font-weight: 400;
+	padding: 10px;
+	line-height: 1.4em;
+}
+
+#edit_post textarea:focus { 
+	color:#000;
+	outline:none;
+}
+
+#edit_post .button {
+	margin-left: 0px;
+}
+
+form {
+	display: inline;
+}
+
+select {
+	font-family: 'Source Sans Pro',Tahoma, Helvetica, Arial,sans-serif;
+	-webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  background-image: url(/css/img/icon_down.png), 
+    -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+  background-position:98% 54%;
+  background-repeat: no-repeat;
+  border: 1px solid #AAA;
+  color: #555;
+  font-size: inherit;
+  font-weight: 300;
+  overflow: hidden;
+  padding: 6px;
+  padding-right: 25px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+label {
+	color: #6e6e6e;
+}
+/*basic styles
+
+	h1: site title. h2: article tile. h3: paragraph title*/
+
+h1 {
+	font: 4.6em/0.82 "NewPressEroded",arial, sans-serif;
+;
+	color: #4b5258;
+}
+
+h2 {
+	font-family: 'Homenaje', arial, sans-serif;
+	font-size: 2em;
+	color: #4b5258;
+}
+
+h3 {
+	font-family: 'Homenaje', Tahoma, sans-serif;
+	font-size: 1.8em;
+	color: #4b5258;
+}
+
+h4 {
+	font-family: 'Homenaje', Tahoma, sans-serif;
+	color: #4b5258;
+	font-size: 1.6em;
+}
+
+p {
+	font-weight: 400;
+	font-size: 1.3em;
+	color: #4c4b4b;
+	-webkit-font-smoothing: antialiased;
+}
+
+a:hover {
+	color: #fa453c;
+}
+
+a:link, a:visited {
+	outline: none;
+}
+
+a {
+	font-weight: 300;
+	color: #0A7BC1;
+	text-decoration: none;
+}
+
+@font-face {
+	font-family: 'NewPressEroded';
+	src:url("font/newpresseroded/New_Press_Eroded.eot");
+	src:url("font/newpresseroded/New_Press_Eroded.ttf") format("truetype");
+	font-weight:normal;
+	font-style:normal
+}
+
+@font-face {
+	font-family: 'BigNoodleTitling';
+	src:url("font/bignoodle_titling/big_noodle_titling.eot");
+	src:url("font/bignoodle_titling/big_noodle_titling.ttf") format("truetype");
+	font-weight:normal;
+	font-style:normal
+}
+
+/* tree view*/
+
+.tree {
+	margin-bottom: 40px;
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.tree ul {
+	padding-top: 10px; position: relative;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.tree li {
+	float: left; text-align: center;
+	list-style-type: none;
+	position: relative;
+	padding: 10px 1px 0 1px;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.tree li::before, .tree li::after{
+	content: '';
+	position: absolute; top: 0; right: 50%;
+	border-top: 1px solid #ccc;
+	width: 50%; height: 10px;
+}
+.tree li::after{
+	right: auto; left: 50%;
+	border-left: 1px solid #ccc;
+}
+
+/*We need to remove left-right connectors from elements without 
+any siblings*/
+.tree li:only-child::after, .tree li:only-child::before {
+	display: none;
+}
+
+/*Remove space from the top of single children*/
+.tree li:only-child{ padding-top: 0;}
+
+/*Remove left connector from first child and 
+right connector from last child*/
+.tree li:first-child::before, .tree li:last-child::after{
+	border: 0 none;
+}
+/*Adding back the vertical connector to the last nodes*/
+.tree li:last-child::before{
+	border-right: 1px solid #ccc;
+	border-radius: 0 5px 0 0;
+	-webkit-border-radius: 0 5px 0 0;
+	-moz-border-radius: 0 5px 0 0;
+}
+.tree li:first-child::after{
+	border-radius: 5px 0 0 0;
+	-webkit-border-radius: 5px 0 0 0;
+	-moz-border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+.tree ul ul::before{
+	content: '';
+	position: absolute; top: 0; left: 50%;
+	border-left: 1px solid #ccc;
+	width: 0; height: 10px;
+}
+
+.tree li a{
+	border: 1px solid #ccc;
+	padding: 5px 3px;
+	text-decoration: none;
+	color: #666;
+	font-family: arial, verdana, tahoma;
+	font-size: 11px;
+	display: inline-block;
+	
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+/*Time for some hover effects*/
+/*We will apply the hover effect the the lineage of the element also*/
+.tree li a:hover, .tree li a:hover+ul li a {
+	background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+}
+/*Connector styles on hover*/
+.tree li a:hover+ul li::after, 
+.tree li a:hover+ul li::before, 
+.tree li a:hover+ul::before, 
+.tree li a:hover+ul ul::before{
+	border-color:  #94a0b4;
+}

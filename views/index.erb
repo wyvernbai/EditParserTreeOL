@@ -1,0 +1,49 @@
+<div id="choose">
+	<form action="/choose" method="post">
+		<label>树库文件：</label>
+		<select name="treeBankFileName" method="post">
+		<% for filename in @files%>
+			<% if filename == @current_file then%>
+				<option SELECTED value="<%=filename %>"><%=filename%></option>
+			<% else%>
+				<option value="<%=filename %>"><%=filename%></option>
+			<% end%>
+		<% end %>
+		</select>
+		<label>&nbsp;&nbsp;&nbsp;第</label>
+		<select name="index" method="post" value="ex">
+		<% for index_item in @index%>
+			<% if index_item == @current_index then%>
+				<option SELECTED value="<%=index_item.to_s %>"><%=" " + index_item.to_s + " "%></option>
+			<% else %>
+				<option value="<%=index_item.to_s %>"><%=" " + index_item.to_s + " "%></option>
+			<% end %>
+		<% end %>
+		</select>
+		<label>句&nbsp;&nbsp;</label>
+		<input type="submit" value="跳转" class="button" />
+	</form>
+	<form action="/prefile" method="post">
+		<input type="submit" value="上一篇" class="button" <%=@hasPreFile %> />
+	</form>
+	<form action="/nextfile" method="post">
+		<input type="submit" value="下一篇" class="button" <%=@hasNextFile %> />
+	</form>
+	<form action="/presetence" method="post">
+		<input type="submit" value="上一句" class="button" <%=@hasPreSetence %> />
+	</form>
+	<form action="/nextsetence" method="post">
+		<input type="submit" value="下一句" class="button" <%=@hasNextSetence %> />
+	</form>
+</div>
+<div class="tree">
+	<ul><%=@graph_area %></ul>
+</div>
+<div id="tree_edit">
+	<form action="/edit_tree" method="post">
+		<textarea name="content" rows="50" cols="2" ><%=@setence%></textarea>
+		<input type="submit" value="图形化" class="button" />
+	</form>
+</div>
+
+

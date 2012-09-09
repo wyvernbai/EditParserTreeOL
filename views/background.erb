@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-Hans" lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= "HIT-MI&T Lab 树库在线标注工具" %></title>
+    <meta name="robots" content="all" />
+    <meta http-equiv="X-UA-Compatible" content="IE=100" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Homenaje' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+  </head>
+  <body>
+  	<div id="outline"></div>
+  	<div id="wrap">
+  		<header role="banner">
+  			<a href="/" id="logo">
+  				<h1>
+  				<%= "HIT-MI&T Lab" %>
+  				<em><%= "树库在线标注工具"%></em>
+  				</h1>
+  			</a>   
+  		</header>
+  		<div id="content">
+  			<%= yield %>
+  		</div>
+  		<!-- /content -->
+  	</div>
+  	<!-- /wrap -->
+  	<footer id="footer">
+  		<div class="footer-inner">
+  			<div class="copy">
+  				<p>
+  					©2012 WyvernBai. <em>Be original.</em>
+  				</p>
+  			</div>
+  		</div>
+  	</footer>
+  	<!-- /extra -->
+  </body>
+</html>
