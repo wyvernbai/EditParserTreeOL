@@ -42,7 +42,10 @@
 <div id="tree_edit">
 	<form action="/edit_tree" method="post">
 		<textarea name="content" rows="50" cols="2" ><%=@setence%></textarea>
-		<input type="submit" value="图形化" class="button" />
+		<input type="submit" value="更新视图" class="button" />
+	</form>
+	<form action="/write_file" method="post">
+		<input type="submit" value="写入文件" class="button" />	
 	</form>
 </div>
 

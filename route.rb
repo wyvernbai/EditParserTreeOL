@@ -62,7 +62,15 @@ class TreeEditer < Sinatra::Base
   	@index = settings.setence_index
   	@current_index = settings.current_index
   	@current_file = settings.current_file
-  	@setence = settings.current_setence
+  	
+  	begin
+  		settings.text_area, settings.graph_area = parserSetence settings.current_setence
+  	rescue => e
+  		puts e.message
+  		puts e.backtrace
+  	end	
+  	
+  	@setence = settings.text_area
   	@graph_area = settings.graph_area
   	erb :index, :layout => :background
   end
@@ -132,12 +140,12 @@ class TreeEditer < Sinatra::Base
   end
   
   post '/edit_tree' do
-  	begin
-  		settings.text_area, settings.graph_area = parserSetence params[:content]
-  	rescue => e
-  		puts e.message
-  		puts e.backtrace
-  	end	
+  	settings.current_setence = params[:content]
+  	redirect "/"
+  end
+  
+  post '/write_file' do
+  	settings.setence_hash[settings.current_index] = settings.current_setence
   	redirect "/"
   end
   
