@@ -3,7 +3,6 @@
 require "sinatra/base"
 require "rdiscount"
 require "erb"
-require "sequel"
 require "sinatra/flash"
 require "./parserSetence.rb"
 
@@ -11,9 +10,14 @@ Sinatra::Base.set :markdown, :layout_engine => :erb
 class TreeEditer < Sinatra::Base
 	register Sinatra::Flash
 
+ enable :sessions
+
   set :root, File.dirname(__FILE__)
   set :public_folder, Proc.new {File.join(root, "public")}
   set :views, Proc.new {File.join(root, "views")}
+  
+  set :files=>[]
+=begin
   set :current_setence=>""
   set :current_index=>0
   set :setence_index=>[]
@@ -22,6 +26,7 @@ class TreeEditer < Sinatra::Base
   set :files=>[]
   set :text_area=>""
   set :graph_area=>""
+=end
 
   view_path = root + "/views/"
   public_path = root + "/public/"
@@ -43,59 +48,70 @@ class TreeEditer < Sinatra::Base
   		setence_index
   	end
   	
-  	def loadfile filename
-  		content = File.read(filename)
-  		settings.setence_hash = setence_segment content
-  		settings.current_file = filename
-  		settings.setence_index = settings.setence_hash.keys
-  		settings.current_index = 0
+  	def setence_segment_singleline content
+		  	
   	end
+  end
+  
+  def simple_loadfile filename
+  		content = File.read(filename)
+  		setence_hash = setence_segment content
+  end
+  
+  def loadfile filename
+  		content = File.read(filename)
+  		setence_hash = setence_segment content
+  		session[:current_file] = filename
+  		session[:setence_index] = setence_hash.keys
+  		setence_hash
   end
   
   get "/" do
   	@files = settings.files
-  	if settings.current_file == "" then
-  		settings.current_file = settings.files[0]
-  		loadfile settings.current_file
-  		settings.current_setence = settings.setence_hash[settings.current_index]
+  	if session[:current_file] == nil then
+  		session[:current_file] = settings.files[0]
+  		session[:current_index] = 0
   	end
-  	@index = settings.setence_index
-  	@current_index = settings.current_index
-  	@current_file = settings.current_file
+  	setence_hash = loadfile session[:current_file]
+  	current_setence = setence_hash[session[:current_index]]
+  	@index = session[:setence_index]
+  	@current_index = session[:current_index]
+  	@current_file = session[:current_file]
   	
   	begin
-  		settings.text_area, settings.graph_area = parserSetence settings.current_setence
+  		session[:text_area], session[:graph_area] = parserSetence current_setence
   	rescue => e
   		puts e.message
   		puts e.backtrace
   	end	
   	
-  	@setence = settings.text_area
-  	@graph_area = settings.graph_area
+  	@setence = session[:text_area]
+  	@graph_area = session[:graph_area]
   	erb :index, :layout => :background
   end
   
   post '/choose' do
-  	if settings.current_file != params[:treeBankFileName] then
-  		loadfile params[:treeBankFileName]
+  	if session[:current_file] != params[:treeBankFileName] then
+  		session[:current_file] = params[:treeBankFileName]
   	end
   	
   	if params[:index] == nil then
-  		settings.current_index = 0
+  		session[:current_index] = 0
   	else
-  		settings.current_index = params[:index].to_i
+  		session[:current_index] = params[:index].to_i
   	end
-  	settings.current_setence = settings.setence_hash[settings.current_index]
   	redirect "/"
   end
   
   post '/nextfile' do
-  	if settings.current_file == "" then
-  		settings.current_file = settings.files[0]
+  
+  	if session[:current_file] == "" then
+  		session[:current_file] = settings.files[0]
   	end
-	 temp = settings.files.find_index(settings.current_file) + 1
+  	session[:current_index] = 0
+	 temp = settings.files.find_index(session[:current_file]) + 1
 	 if temp < settings.files.size then
-	 	loadfile settings.files[temp]
+	 	session[:current_file] = settings.files[temp]
 	 	@hasNextFile = ""
 	 else
 	 	@hasNextFile = "disabled"
@@ -104,12 +120,13 @@ class TreeEditer < Sinatra::Base
   end  
   
   post '/prefile' do
-  	  if settings.current_file == "" then
-  		settings.current_file = settings.files[0]
+  	if session[:current_file] == "" then
+  		session[:current_file] = settings.files[0]
   	end
-	 temp = settings.files.find_index(settings.current_file) - 1
+  	session[:current_index] = 0
+	 temp = settings.files.find_index(session[:current_file]) - 1
 	 if temp >= 0 then
-	 	loadfile settings.files[temp]
+	 	session[:current_file] = settings.files[temp]
 	 	@hasPreFile = ""
 	 else
 	 	@hasPreFile = "disabled"
@@ -118,35 +135,52 @@ class TreeEditer < Sinatra::Base
   end
   
   post '/presetence' do
-  	if settings.current_index - 1 < 0 then
+  	if session[:current_index] - 1 < 0 then
   		@hasPreSetence = "disabled"
   	else
   		@hasPreSetence = ""
-  		settings.current_index -= 1
-   		settings.current_setence = settings.setence_hash[settings.current_index]
+  		session[:current_index] -= 1
   	end
 	 redirect "/"
   end
   
   post '/nextsetence' do
-  	if settings.current_index + 1 >= settings.setence_hash.size then
+  	p session[:current_index]
+  	if session[:current_index] + 1 >= session[:setence_index].size then
   		@hasPreSetence = "disabled"
   	else
   		@hasPreSetence = ""
-  		settings.current_index += 1
-   		settings.current_setence = settings.setence_hash[settings.current_index]
+  		session[:current_index] += 1
   	end
 	 redirect "/"
   end
   
   post '/edit_tree' do
-  	settings.current_setence = params[:content]
-  	redirect "/"
+  	current_setence = params[:content]
+  	begin
+  		session[:text_area], session[:graph_area] = parserSetence current_setence
+  	rescue => e
+  		puts e.message
+  		puts e.backtrace
+  	end	
+  	@setence = session[:text_area]
+  	@graph_area = session[:graph_area]
+  	
+  	@files = settings.files
+  	@index = session[:setence_index]
+  	@current_index = session[:current_index]
+  	@current_file = session[:current_file]
+
+  	erb :index, :layout => :background
   end
   
   post '/write_file' do
-  	settings.setence_hash[settings.current_index] = settings.current_setence
-  	redirect "/"
+  	setence_hash = loadfile session[:current_file]
+  	setence_hash[session[:current_index]] = oneLine session[:text_area]
+  	outstream = File.open(session[:current_file], "w")
+  	setence_hash.each do |key, value|
+  		outstream.write value
+  	end
   end
   
   not_found do
