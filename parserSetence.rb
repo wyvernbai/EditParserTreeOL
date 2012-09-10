@@ -96,8 +96,9 @@ def showTree_text head_node
 	end
 end
 
-NODE_STRING = 
-
+def oneLine orgin_string
+	orgin_string.gsub(/\n[\t| |\r]*/, ' ').gsub(/^\(ROOT/, '(').gsub(/\)$/, " )") + "\n"
+end
 
 def showTree_graph head_node
 	"nil"

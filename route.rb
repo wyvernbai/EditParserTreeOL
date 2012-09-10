@@ -190,6 +190,8 @@ class TreeEditer < Sinatra::Base
   	setence_hash.each do |key, value|
   		outstream.write value
   	end
+  	outstream.close
+  	redirect "/"
   end
   
   not_found do
