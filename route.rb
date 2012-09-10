@@ -3,14 +3,14 @@
 require "sinatra/base"
 require "rdiscount"
 require "erb"
-require "sinatra/flash"
+require "rack-flash"
 require "./parserSetence.rb"
 
 Sinatra::Base.set :markdown, :layout_engine => :erb
 class TreeEditer < Sinatra::Base
-	register Sinatra::Flash
 
 	use Rack::Session::Pool
+    use Rack::Flash
 # enable :sessions
 
   set :root, File.dirname(__FILE__)
@@ -89,6 +89,8 @@ class TreeEditer < Sinatra::Base
   	begin
   		session[:text_area], @graph_area = parserSetence current_setence
   	rescue => e
+  		@graph_area = e.message + "<br><br>Note: the judge function may still have bugs"
+  		session[:text_area] = current_setence
   		puts e.message
   		puts e.backtrace
   	end	
@@ -167,6 +169,8 @@ class TreeEditer < Sinatra::Base
   	begin
   		session[:text_area], @graph_area = parserSetence current_setence
   	rescue => e
+  		@graph_area = e.message
+  		session[:text_area] = current_setence
   		puts e.message
   		puts e.backtrace
   	end	
