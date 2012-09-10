@@ -21,9 +21,18 @@ def parserSetence org_setence
 	setence = org_setence
 	regex_left = /\A[\n|\r|\t| ]*\(([^ ]*)/m
 	regex_right = /\A[\n|\r|\t| ]*([^(]*?)\)/m
+	special_left = /\A[\n|\r|\t| ]*\(\)/m
+	special_right = /\A[\n|\r|\t| ]*\)\)/m
 	while setence =~ /\)[\t|\n| |\r]*$/ do
-		if regex_left =~ setence then
-			puts "+++" + $1
+		# "(NN ()"
+		if special_left =~ setence then
+			temp_node = TreeNode.new
+			temp_node.initialize1 "(", current_node, current_node.deep + 1
+			current_node.addson temp_node
+			current_node = current_node.parent
+			puts "---" + "(" + "\t #{current_node.deep.to_s}"
+			setence = $~.post_match
+		elsif regex_left =~ setence then
 			if current_node == nil then
 				current_node = TreeNode.new
 				current_node.initialize1 "ROOT", nil, 0
@@ -31,34 +40,41 @@ def parserSetence org_setence
 			else
 				temp_node = TreeNode.new
 				temp_node.initialize1 $1, current_node, current_node.deep + 1
-				p current_node.deep
 				current_node.addson temp_node
 				current_node = temp_node
+			end 
+			puts "+++" + $1 + "\t #{current_node.deep.to_s}"
+			setence = $~.post_match 
+			if special_right =~ setence then
+				temp_node = TreeNode.new
+				temp_node.initialize1 ")", current_node, current_node.deep + 1
+				current_node.addson temp_node
+				#exception
+				current_node = current_node.parent
+				setence = $~.post_match
 			end
-			setence = $~.post_match  
 		elsif regex_right =~ setence then
-			puts "---" + $1
 			if $1 != "" then
 				temp_node = TreeNode.new
 				temp_node.initialize1 $1, current_node, current_node.deep + 1
 				current_node.addson temp_node
+				#exception
 				current_node = current_node.parent
 			else
 				current_node = current_node.parent
 			end
 			setence = $~.post_match
+			puts "---" + $1 + "\t #{current_node.deep.to_s}" if current_node != nil
 		else
 			raise RuntimeError, "Error Format: \"#{setence}\"" 
 		end
 	end
 	
-	raise RuntimeError, "Less "")"" at the end of setence" if current_node != nil
+	raise RuntimeError, "#{current_node.name} Less "")"" at the end of setence" if current_node != nil
 	raise RuntimeError, "Setence is not completed" if setence == org_setence
 	
 	text_area = showTree_text head_node
-	puts text_area
 	graph_area = showTree_graph head_node
-	puts graph_area
 	return text_area, graph_area
 end
 

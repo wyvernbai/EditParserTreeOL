@@ -10,7 +10,8 @@ Sinatra::Base.set :markdown, :layout_engine => :erb
 class TreeEditer < Sinatra::Base
 	register Sinatra::Flash
 
- enable :sessions
+	use Rack::Session::Pool
+# enable :sessions
 
   set :root, File.dirname(__FILE__)
   set :public_folder, Proc.new {File.join(root, "public")}
@@ -33,7 +34,7 @@ class TreeEditer < Sinatra::Base
   layout 'background'
 
   configure do
-  	settings.files = Dir["TreeBank/*\.fid"]
+  	settings.files = Dir["TreeBank/*"]
   end
 
   helpers do
@@ -49,7 +50,13 @@ class TreeEditer < Sinatra::Base
   	end
   	
   	def setence_segment_singleline content
-		  	
+		setence_index = {}
+		index = 0
+		content.each_line do |setence|
+			setence_index.store index, setence
+			index += 1
+		end  	
+		setence_index
   	end
   end
   
@@ -60,7 +67,7 @@ class TreeEditer < Sinatra::Base
   
   def loadfile filename
   		content = File.read(filename)
-  		setence_hash = setence_segment content
+  		setence_hash = setence_segment_singleline content
   		session[:current_file] = filename
   		session[:setence_index] = setence_hash.keys
   		setence_hash
@@ -74,19 +81,19 @@ class TreeEditer < Sinatra::Base
   	end
   	setence_hash = loadfile session[:current_file]
   	current_setence = setence_hash[session[:current_index]]
+  	puts current_setence
   	@index = session[:setence_index]
   	@current_index = session[:current_index]
   	@current_file = session[:current_file]
   	
   	begin
-  		session[:text_area], session[:graph_area] = parserSetence current_setence
+  		session[:text_area], @graph_area = parserSetence current_setence
   	rescue => e
   		puts e.message
   		puts e.backtrace
   	end	
   	
   	@setence = session[:text_area]
-  	@graph_area = session[:graph_area]
   	erb :index, :layout => :background
   end
   
@@ -158,14 +165,12 @@ class TreeEditer < Sinatra::Base
   post '/edit_tree' do
   	current_setence = params[:content]
   	begin
-  		session[:text_area], session[:graph_area] = parserSetence current_setence
+  		session[:text_area], @graph_area = parserSetence current_setence
   	rescue => e
   		puts e.message
   		puts e.backtrace
   	end	
   	@setence = session[:text_area]
-  	@graph_area = session[:graph_area]
-  	
   	@files = settings.files
   	@index = session[:setence_index]
   	@current_index = session[:current_index]
