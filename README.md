@@ -23,4 +23,4 @@ Setup:
 
 Demo:
 
-![image](https://github.com/wyvernbai/MyCloud/blob/master/img/edittreeol_demo.png)
+![image](https://raw.github.com/wyvernbai/MyCloud/master/img/edittreeol_demo.png)
