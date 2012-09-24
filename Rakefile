@@ -1,6 +1,6 @@
-task :default => :my_site
+task :default => :server
 
-task :my_site do 
+task :server do 
     ruby 'route.rb'
 end
 
